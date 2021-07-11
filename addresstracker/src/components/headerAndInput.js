@@ -1,9 +1,14 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
-
+import AppContext from '../context/context';
 import Arrow from '../images/icon-arrow.svg'
 
+const axios = require('axios');
+
 export default function HeaderAndInput({theme}){
+    const [ip, setIp] = useState('8.8.8.8')
+    const {datas,setToDatas} = useContext(AppContext)
+
     const DivHeader = styled.div`
         margin: 0 auto;
         text-align: center;
@@ -41,13 +46,25 @@ export default function HeaderAndInput({theme}){
         }
     
     `;
+
+    const getDatas = () => {
+        axios.get(`https://geo.ipify.org/api/v1?apiKey=at_rwNFfq3KZVNlWT47DO4GZzSCP20k5&ipAddress=${ip}`)
+            .then((data) => {
+                setToDatas([data])
+                console.log(datas)
+            }) 
+    }
+
+    const getIp = (ev) => {
+        setIp(ev)
+    }
     return(
         <>
             <DivHeader>
                     <h1>IP Address Tracker</h1>
                     <div>
-                        <input type='text' name='code' id='code' placeholder='Search for any IP address or domain'></input>
-                        <section><img src={Arrow} alt='Icon of arrow'></img></section>
+                        <input type='text' name='code' id='code' placeholder='Search for any IP address or domain' value={ip} onChange={(e) => getIp(e.target.value)}></input>
+                        <section onClick={() => getDatas()}><img src={Arrow} alt='Icon of arrow'></img></section>
                     </div>
             </DivHeader>
         </>
