@@ -15,6 +15,7 @@ export default function Datas(){
         position: fixed;
         z-index: 999;
         left: 50%;
+        top: 22%;
         transform: translateX(-50%);
         div{
             padding: 2.0rem 2rem 2.5rem 2rem;
@@ -52,12 +53,12 @@ export default function Datas(){
                     <span></span>
                 <div>
                     <h1>Timezone</h1>
-                    <p>UTC {datas.length !== 0 && datas[0].data.location.timezone}</p>
+                    <p>{datas.length !== 0 && 'UTC' + datas[0].data.location.timezone}</p>
                 </div>
                     <span></span>
                 <div>
                     <h1>ISP</h1>
-                    <p>{datas.length !== 0 && datas[0].data.isp}</p>
+                    <p class='isp'>{datas.length !== 0 && datas[0].data.isp}</p>
                 </div>
             </DivData>
         </>

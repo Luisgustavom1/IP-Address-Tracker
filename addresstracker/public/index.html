@@ -1,29 +1,54 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Ip Address Tracker</title>
-    <!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script> -->
-    <link rel="stylesheet" type="text/css" href="./style.css" />
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin=""/>
+    <style>
+        #mapid { 
+          height: 70vh; 
+        }
+    </style>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
-  </head>
-  <body>
+    <title>Ip Address Tracker</title>
+</head>
+<body>
     <div id="root"></div>
-    <!-- <div id="map"></div> -->
-
-    <!-- <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwU0t76hKTAqZ1vvChpMIj557iToltTEQ&callback=initMap&libraries=&v=weekly"
-      async
-    ></script>
+    <div id="mapid"></div>
+    <input type="text" id='lat'>
+    <input type="text" id='long'>
     <script>
-      let map;
+      // import {React, useContext} from '../react'
+      // import AppContext from '../src/context/context.js';
 
-      function initMap() {
-        map = new google.maps.Map(document.getElementById("map"), {
-          center: { lat: -34.397, lng: 150.644 },
-          zoom: 8,
-        });
-      }</script> -->
-  </body>
+      // const {datas} = useContext(AppContext) 
+
+      var mymap = L.map('mapid').setView([`${Number(document.querySelector('#lat').value)}`, `${Number(document.querySelector('#long').value)}`], 13);
+      L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibHVpc2FvbW9uc3RybyIsImEiOiJja3F6d28za3cxbTN5Mm9sZnk3eG90YmNoIn0.PAcV3Wd6ihaZB2EZ8ToqgQ', {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        maxZoom: 18,
+        id: 'mapbox/streets-v11',
+        tileSize: 512,
+        zoomOffset: -1,
+        accessToken: 'your.mapbox.access.token'
+      }).addTo(mymap);
+      
+      var myIcon = L.icon({
+        iconUrl: '../src/images/icon-location.svg'
+      })
+      
+      var marker = L.marker([51.5, -0.09], {icon: myIcon}).addTo(mymap);
+    </script>
+</body>
 </html>
+
+    
