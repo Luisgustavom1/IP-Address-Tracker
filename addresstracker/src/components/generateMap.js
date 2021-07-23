@@ -7,11 +7,16 @@ import AppContext from '../context/context';
 
 export default function GenerateMap() {
     const {datas} = useContext(AppContext)
-    const [position, setPosition] = useState(['', ''])
+    const [Position, setPosition] = useState({
+        lat: '',
+        lng: ''
+    })
 
     useEffect(() => {
-        console.log(datas[0].data.location.lat)
-        // setPosition([datas[0].data.locaion.lat, datas[0].data.locaion.lat])
+        const positionObj = {};
+        positionObj.lat = datas[0].data.location.lat;
+        positionObj.lng = datas[0].data.location.lng;
+        setPosition(positionObj);
     }, [datas])
     const myIcon = L.icon({
         iconUrl: 'https://cdn.icon-icons.com/icons2/1258/PNG/512/1495574559-map-location-solid-style-01_84581.png',
@@ -21,12 +26,12 @@ export default function GenerateMap() {
     })
     return(
         <>
-            <MapContainer center={position} zoom={13} scrollWheelZoom={false} style={{height: '70vh'}}>
+            <MapContainer center={[Position.lat, Position.lng]} zoom={13} scrollWheelZoom={false} style={{height: '70vh'}}>
                 <TileLayer
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-                <Marker position={position} icon={myIcon}>
+                <Marker position={Position} icon={myIcon}>
                     <Popup>
                     A pretty CSS3 popup. <br /> Easily customizable.
                     </Popup>

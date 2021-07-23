@@ -48,7 +48,7 @@ const DivHeader = styled.div`
 `;
 export default function HeaderAndInput(){
     const [ip, setIp] = useState('')
-    const {setToDatas} = useContext(AppContext)
+    const { setToDatas } = useContext(AppContext)
 
     const getDatas = async () => {
         if(ip.length !== 0){
@@ -60,7 +60,6 @@ export default function HeaderAndInput(){
             alert('Digite um ip primeiro')
         }
     }
-
     const getIp = (ev) => {
         setIp(ev)
     }
