@@ -48,36 +48,31 @@ const DivHeader = styled.div`
 `;
 export default function HeaderAndInput(){
     const [ip, setIp] = useState('')
-    const {datas,setToDatas} = useContext(AppContext)
+    const {setToDatas} = useContext(AppContext)
 
     const getDatas = async () => {
         if(ip.length !== 0){
             await axios.get(`https://geo.ipify.org/api/v1?apiKey=at_rwNFfq3KZVNlWT47DO4GZzSCP20k5&ipAddress=${ip}`)
                 .then((data) => {
                     setToDatas([data])
-                    console.log(datas)
                 })
-            const lat = document.querySelector('#lat')    
-            const long = document.querySelector('#long')
-    
-            lat.setAttribute('value', datas[0].data.location.lat)
-            long.setAttribute('value', datas[0].data.location.lng)
         }else{
             alert('Digite um ip primeiro')
         }
-
     }
 
     const getIp = (ev) => {
         setIp(ev)
     }
     return(
-        <DivHeader>
-                <h1>IP Address Tracker</h1>
-                <div>
-                    <input type='text' name='code' id='code' placeholder='Search for any IP address or domain' value={ip} onChange={(e) => getIp(e.target.value)}></input>
-                    <section onClick={() => getDatas()}><img src={Arrow} alt='Icon of arrow'></img></section>
-                </div>
-        </DivHeader>
+        <>
+            <DivHeader>
+                    <h1>IP Address Tracker</h1>
+                    <div>
+                        <input type='text' name='code' id='code' placeholder='Search for any IP address or domain' value={ip} onChange={(e) => getIp(e.target.value)}></input>
+                        <section onClick={() => getDatas()}><img src={Arrow} alt='Icon of arrow'></img></section>
+                    </div>
+            </DivHeader>
+        </>
     )
 }

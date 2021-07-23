@@ -1,8 +1,9 @@
-import {styled,createGlobalStyle} from 'styled-components'
+import {createGlobalStyle} from 'styled-components'
 
 import HeaderAndInput from "./components/headerAndInput";
 import Datas from './components/datas'
 import AppProvider from './context/provider';
+import GenerateMap from './components/generateMap';
 
 const GlobalStyle = createGlobalStyle`
     *{
@@ -32,6 +33,7 @@ function App() {
       <GlobalStyle/>
       <HeaderAndInput></HeaderAndInput>
       <Datas></Datas>
+      <GenerateMap/>
     </AppProvider>
   );
 }
